@@ -23,10 +23,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Task 1.3. Import file content to database. <br>
+ * Display the process
+ *
+ * @author Lizaveta Yakauleva
+ * @version 1.0
+ */
 public class Task1_3 {
   private static int addedStringsCount = 0;
   private static int linesInFile = 0;
 
+  /** Inputs all line from file with the specific structure to database */
   public static void importFileToDatabase() {
     File folder = new File(FOLDER_NAME);
     for (File inputFile : Objects.requireNonNull(folder.listFiles())) {
@@ -35,9 +43,12 @@ public class Task1_3 {
         FileReader fileReader = new FileReader(inputFile);
         BufferedReader reader = new BufferedReader(fileReader);
         countLinesInFile(inputFile);
+        // reads file line by line
         String line = reader.readLine();
         while (line != null) {
+          // converts line to model object
           CustomString customString = convertLineToModel(line);
+          // adds formed object to database
           addObjectToDatabase(customString);
           line = reader.readLine();
         }
@@ -49,14 +60,23 @@ public class Task1_3 {
     }
   }
 
+  /**
+   * Converts random string to model
+   *
+   * @param line string to convert
+   * @return formed object
+   */
   private static CustomString convertLineToModel(String line) {
+    // splits given string into string array by regular expression
     String[] strings = line.split("\\|\\|");
     CustomString customString = new CustomString();
+    // sets values to model
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     customString.setDate(LocalDate.parse(strings[0], formatter));
     customString.setEnglishString(strings[1]);
     customString.setRussianString(strings[2]);
     customString.setIntNumber(Integer.parseInt(strings[3]));
+    // parses double number with comma as a separator
     NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
     Number number = null;
     try {
@@ -68,13 +88,21 @@ public class Task1_3 {
     return customString;
   }
 
+  /**
+   * Adds provided object to database
+   *
+   * @param customString object to add
+   */
   private static void addObjectToDatabase(CustomString customString) {
     Connection con = null;
     PreparedStatement st = null;
     try {
       Class.forName(DB_DRIVER);
+      // creates connection to database
       con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+      // creates query
       st = con.prepareStatement(INSERT_QUERY);
+      // sets values to input
       st.setDate(1, java.sql.Date.valueOf(customString.getDate()));
       st.setString(2, customString.getEnglishString());
       st.setString(3, customString.getRussianString());
@@ -91,11 +119,13 @@ public class Task1_3 {
       System.out.println(e.getMessage());
     } finally {
       try {
+        // closes statement
         Objects.requireNonNull(st).close();
       } catch (SQLException e) {
         System.out.println(e.getMessage());
       }
       try {
+        // closes connection
         Objects.requireNonNull(con).close();
       } catch (SQLException e) {
         System.out.println(e.getMessage());
@@ -103,11 +133,17 @@ public class Task1_3 {
     }
   }
 
+  /**
+   * Counts total number of line in the file
+   *
+   * @param inputFile file to count line in
+   */
   private static void countLinesInFile(File inputFile) {
     try {
       FileReader fileReader = new FileReader(inputFile);
       BufferedReader reader = new BufferedReader(fileReader);
       linesInFile = 0;
+      // reads line by line and counts
       while (reader.readLine() != null) linesInFile++;
       reader.close();
       fileReader.close();

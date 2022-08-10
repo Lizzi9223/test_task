@@ -1,8 +1,13 @@
 package by.b1.testing.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
+/**
+ * Model to store generated random string by fields
+ *
+ * @author Lizaveta Yakauleva
+ * @version 1.0
+ */
 public class CustomString {
   private LocalDate date;
   private String englishString;
@@ -10,17 +15,7 @@ public class CustomString {
   private int intNumber;
   private double doubleNumber;
 
-  public CustomString() {
-  }
-
-  public CustomString(LocalDate date, String englishString, String russianString, int intNumber,
-      double doubleNumber) {
-    this.date = date;
-    this.englishString = englishString;
-    this.russianString = russianString;
-    this.intNumber = intNumber;
-    this.doubleNumber = doubleNumber;
-  }
+  public CustomString() {}
 
   public LocalDate getDate() {
     return date;

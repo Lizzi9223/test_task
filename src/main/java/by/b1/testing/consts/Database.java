@@ -1,5 +1,11 @@
 package by.b1.testing.consts;
 
+/**
+ * Contains configuration parameters and queries for database
+ *
+ * @author Lizaveta Yakauleva
+ * @version 1.0
+ */
 public class Database {
   public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
   public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/test_task?useSSL=false";

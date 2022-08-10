@@ -1,6 +1,14 @@
 package by.b1.testing.consts;
 
+/**
+ * Contains parameters for the tasks
+ *
+ * @author Lizaveta Yakauleva
+ * @version 1.0
+ */
 public final class Parameters {
+
+  /** Contains parameters for task 1.1 */
   public static final class Task1_1 {
     public static final int YEARS_RANGE = 5;
     public static final int RANDOM_STRING_LENGTH = 10;
@@ -13,6 +21,7 @@ public final class Parameters {
     public static final int FILES_COUNT = 100;
   }
 
+  /** Contains parameters for task 1.2 */
   public static final class Task1_2 {
     public static final String FOLDER_NAME = "files/";
     public static final String FILE_NAME = "file_";

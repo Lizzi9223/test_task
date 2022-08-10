@@ -1,5 +1,11 @@
 package by.b1.testing.consts;
 
+/**
+ * Contains constants
+ *
+ * @author Lizaveta Yakauleva
+ * @version 1.0
+ */
 public final class Consts {
   public static final String SEPARATOR_FOR_STRING = "||";
   public static final String SEPARATOR_FOR_DATE = ".";
